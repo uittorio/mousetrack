@@ -7,4 +7,5 @@ class EventRepository(ABC):
     def write_mouse_event(self): pass
 
     @abstractmethod
-    def get(self) -> list[str]: pass
+    def get(self) -> list[Event]: pass
+
