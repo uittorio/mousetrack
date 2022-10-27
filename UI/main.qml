@@ -2,6 +2,8 @@ import QtQuick
 import QtQuick.Controls.Basic
 ApplicationWindow {
     id: applicationWindow
+    property QtObject backend
+    property string currTime: "00:00:00"
     visible: true
     width: 600
     height: 500
@@ -24,9 +26,16 @@ ApplicationWindow {
                 left: mainContainer.left
                 leftMargin: 12
             }
-            text: "16:38:33"
+            text: currTime
             font.pixelSize: 24
             color: "black"
+        }
+    }
+
+    Connections {
+        target: backend
+        function onUpdated(msg) {
+           currTime = msg;
         }
     }
 }
