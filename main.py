@@ -3,7 +3,6 @@ import threading
 from UI.app import draw_app
 from data.eventdata import EventData
 from input_events.input_events import mouse_event_listener
-from updater.updater import TimerUpdater
 
 
 def main():
