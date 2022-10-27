@@ -1,7 +1,6 @@
 from pynput import mouse
 
-from data.eventdata import EventData
-from updater.updater import TimerUpdater
+from data.event_data_repository import EventRepository
 
 
 def on_move(x, y):
@@ -11,15 +10,17 @@ def on_move(x, y):
 def on_click(x, y, button, pressed):
     print('clicking')
 
-def on_scroll(event_data: EventData):
+
+def on_scroll(event_data: EventRepository):
     def inner_func(x, y, dx, dy):
-        event_data.writeMouseEvent()
+        event_data.write_mouse_event()
 
     return inner_func
 
-def mouse_event_listener(event_data: EventData):
+
+def mouse_event_listener(event_repository: EventRepository):
     with mouse.Listener(
             on_move=on_move,
             on_click=on_click,
-            on_scroll=on_scroll(event_data)) as listener:
+            on_scroll=on_scroll(event_repository)) as listener:
         listener.join()
