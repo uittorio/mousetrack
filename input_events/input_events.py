@@ -12,10 +12,10 @@ def on_click(x, y, button, pressed):
 
 
 def on_scroll(event_data: EventRepository):
-    def inner_func(x, y, dx, dy):
+    def _on_scroll(x, y, dx, dy):
         event_data.write_mouse_event()
 
-    return inner_func
+    return _on_scroll
 
 
 def mouse_event_listener(event_repository: EventRepository):
