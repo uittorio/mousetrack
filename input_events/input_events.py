@@ -11,11 +11,6 @@ def on_move(x, y):
 def on_click(x, y, button, pressed):
     print('clicking')
 
-    # if not pressed:
-    #     # Stop listener
-    #     return False
-
-
 def on_scroll(event_data: EventData):
     def inner_func(x, y, dx, dy):
         event_data.writeMouseEvent()
