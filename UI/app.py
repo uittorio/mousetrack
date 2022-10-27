@@ -1,6 +1,5 @@
 import sys
 
-from PyQt6.QtCore import QObject
 from PyQt6.QtGui import QGuiApplication
 from PyQt6.QtQml import QQmlApplicationEngine
 from PyQt6.QtQuick import QQuickWindow

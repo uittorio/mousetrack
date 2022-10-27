@@ -6,6 +6,7 @@ from port.event_repository import EventRepository
 
 class FileEventRepository(EventRepository):
     file_storage = "file_storage/events.json"
+
     def __init__(self):
         self.data = []
         self.__load_data()
