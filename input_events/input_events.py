@@ -1,6 +1,6 @@
 from pynput import mouse
 
-from data.event_data_repository import EventRepository
+from port.event_repository import EventRepository
 
 
 def on_move(x, y):

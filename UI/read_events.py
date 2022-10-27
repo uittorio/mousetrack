@@ -4,7 +4,7 @@ from time import sleep
 
 from PyQt6.QtCore import QObject, pyqtSignal
 
-from data.event_data_repository import EventRepository
+from port.event_repository import EventRepository
 
 
 class ReadEvents(QObject):

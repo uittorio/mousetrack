@@ -6,7 +6,7 @@ from PyQt6.QtQml import QQmlApplicationEngine
 from PyQt6.QtQuick import QQuickWindow
 
 from UI.read_events import ReadEvents
-from data.event_data_repository import EventRepository
+from port.event_repository import EventRepository
 
 
 def draw_app(event_repository: EventRepository):

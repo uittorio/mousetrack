@@ -3,3 +3,4 @@
 venv
 track_mouse.egg-info
 build
+file_storage
