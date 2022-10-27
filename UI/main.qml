@@ -51,6 +51,7 @@ ApplicationWindow {
     Connections {
         target: backend
         function onUpdated(messages) {
+            eventList.clear()
             messages.forEach((message) => {
                 eventList.append({"type": message.type, "time": message.time})
             })

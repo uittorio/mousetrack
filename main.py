@@ -12,8 +12,8 @@ def main():
     event_data.loadData()
     event_data.writeMouseEvent()
 
-    # t1 = threading.Thread(target=mouse_event_listener, args=[timer_updater], daemon=True)
-    # t1.start()
+    t1 = threading.Thread(target=mouse_event_listener, args=[event_data], daemon=True)
+    t1.start()
 
     draw_app()
 
