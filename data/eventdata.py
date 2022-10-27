@@ -11,7 +11,6 @@ class EventData:
         try:
             with open("data/eventData.json", encoding='utf-8') as f:
                 self.data = json.load(f)
-                print(self.data)
         except FileNotFoundError:
             print("Creating the file for the first time")
 

@@ -7,8 +7,6 @@ from updater.updater import TimerUpdater
 
 
 def main():
-    timer_updater = TimerUpdater()
-
     event_data = EventData()
 
     event_data.loadData()
@@ -17,7 +15,7 @@ def main():
     # t1 = threading.Thread(target=mouse_event_listener, args=[timer_updater], daemon=True)
     # t1.start()
 
-    draw_app(timer_updater)
+    draw_app()
 
 
 main()
