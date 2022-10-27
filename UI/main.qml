@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls.Basic
 ApplicationWindow {
     id: applicationWindow
-    property QtObject backend
+    property QtObject readEvents
     visible: true
     width: 600
     height: 500
@@ -49,7 +49,7 @@ ApplicationWindow {
     }
 
     Connections {
-        target: backend
+        target: readEvents
         function onUpdated(messages) {
             eventList.clear()
             messages.forEach((message) => {
