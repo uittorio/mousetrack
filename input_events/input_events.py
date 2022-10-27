@@ -33,7 +33,7 @@ def on_scroll(event_data: EventRepository):
 
 
 def mouse_event_listener(event_repository: EventRepository):
-    mouseListener = mouse.Listener(
+    mouse_listener = mouse.Listener(
         on_move=on_move,
         on_click=on_click,
         on_scroll=on_scroll(event_repository))
@@ -44,4 +44,4 @@ def mouse_event_listener(event_repository: EventRepository):
     # )
 
     # keyboardListener.start();
-    mouseListener.start()
+    mouse_listener.start()
