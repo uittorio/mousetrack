@@ -1,6 +1,7 @@
 import json
 from time import strftime, gmtime
 
+from domain.event import Event
 from port.event_repository import EventRepository
 
 
@@ -12,8 +13,7 @@ class FileEventRepository(EventRepository):
         self.__load_data()
 
     def __load_data(self):
-        data = self.get()
-        self.data = data
+        self.data = self.get()
 
     def write_mouse_event(self):
         curr_time: str = strftime("%d/%m/%Y-%H:%M:%S", gmtime())
@@ -26,7 +26,7 @@ class FileEventRepository(EventRepository):
             data = json.dumps(self.data, ensure_ascii=False, indent=4)
             f.write(data)
 
-    def get(self) -> list:
+    def get(self) -> list[Event]:
         try:
             with open(self.file_storage, encoding='utf-8') as f:
                 return json.load(f)
