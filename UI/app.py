@@ -16,5 +16,5 @@ def draw_app(event_repository: EventRepository):
     engine.load('./UI/main.qml')
     read_events = ReadEvents(event_repository)
     engine.rootObjects()[0].setProperty('readEvents', read_events)
-    read_events.boot_up()
+    read_events.read()
     sys.exit(app.exec())

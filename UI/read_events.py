@@ -17,12 +17,12 @@ class ReadEvents(QObject):
     def updater(self, events):
         self.updated.emit(events)
 
-    def boot_up(self):
-        t_thread = threading.Thread(target=self._boot_up)
+    def read(self):
+        t_thread = threading.Thread(target=self.__read)
         t_thread.daemon = True
         t_thread.start()
 
-    def _boot_up(self):
+    def __read(self):
         while True:
             try:
                 events = self.event_data_repository.get()
