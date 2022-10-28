@@ -1,8 +1,13 @@
 import json
-from time import strftime, gmtime
+import os
 
 from src.domain.mouse_event import MouseEvent
 from src.port.event_repository import EventRepository
+
+
+def safe_open_w(path):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    return open(path, 'w+', encoding='utf-8')
 
 
 class FileEventRepository(EventRepository):
@@ -16,14 +21,9 @@ class FileEventRepository(EventRepository):
     def __load_data(self):
         self.data = self.get()
 
-    def write_mouse_event(self):
-        curr_time: str = strftime("%d/%m/%Y-%H:%M:%S", gmtime())
-        self.data.append({
-            "type": "click",
-            "time": curr_time
-        })
-
-        with open(self.file_storage, 'w', encoding='utf-8') as f:
+    def add_mouse_event(self, event: MouseEvent):
+        self.data.append(event)
+        with safe_open_w(self.file_storage) as f:
             data = json.dumps(self.data, ensure_ascii=False, indent=4)
             f.write(data)
 
