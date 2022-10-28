@@ -1,8 +1,8 @@
 import json
 from time import strftime, gmtime
 
-from domain.mouse_event import MouseEvent
-from port.event_repository import EventRepository
+from src.domain.mouse_event import MouseEvent
+from src.port.event_repository import EventRepository
 
 
 class FileEventRepository(EventRepository):

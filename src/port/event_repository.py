@@ -1,4 +1,4 @@
-from domain.mouse_event import MouseEvent
+from src.domain.mouse_event import MouseEvent
 from abc import ABC, abstractmethod
 
 

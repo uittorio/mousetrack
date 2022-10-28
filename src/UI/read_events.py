@@ -1,11 +1,10 @@
-import json
 import threading
 from time import sleep
 
 from PyQt6.QtCore import QObject, pyqtSignal
 
-from domain.mouse_event import MouseEvent
-from port.event_repository import EventRepository
+from src.domain.mouse_event import MouseEvent
+from src.port.event_repository import EventRepository
 
 
 class ReadEvents(QObject):
