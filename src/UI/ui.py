@@ -17,7 +17,7 @@ class UI:
 
     def draw(self):
         self.engine.quit.connect(self.app.quit)
-        self.engine.load('./src/UI/main.qml')
+        self.engine.load('./UI/main.qml')
         read_events = ReadEvents(self.event_repository)
         self.engine.rootObjects()[0].setProperty('readEvents', read_events)
         read_events.read()

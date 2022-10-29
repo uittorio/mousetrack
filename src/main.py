@@ -9,7 +9,7 @@ def main():
 
     ui = UI(event_repository)
     mouse_event_listener(event_repository)
-    # keyboard_event_listener()
+    keyboard_event_listener()
     ui.draw()
 
 
