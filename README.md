@@ -1,20 +1,25 @@
 # Mouse Track
 
-This is an application written in python to monitor how often the mouse is used.
-The purpose of this application is to minimize the number of times the mouse is use to improve a developer experience through shortcuts
+This is an application written in python to monitor the interaction with the mouse.
+The purpose of this application is to improve your productivity by minimize the number of times you are reaching for the mouse.
 
 
 ### How does it work
-The application listens to the mouse event
+It listens to mouse events:
 - onClick
 - onScroll
 - onMove
 
 It records these events and store them into a json file.
 It then displays these data into a UI.
-It also displays a value called Mouse usage that is the union of these three with some business rules. 
+It also displays a value called Mouse usage that is the union of these three with some business rules.
 
-#### What are these rules
+#### Event rules
+- onClick -> Every click is saved into the json
+- onScroll -> There are many events happening when you "scroll". We are going to limit this for one event every 2 seconds
+- onMove -> Same as above
+
+#### Mouse usage rules
 A mouse usage is considered valid when
 - Any of the three events, onClick, onScroll, onMove happened 
 - As long as you keep using the mouse without using the keyboard it counts as 1
