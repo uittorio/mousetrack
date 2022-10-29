@@ -1,5 +1,7 @@
 import QtQuick
 import QtQuick.Controls.Basic
+import "./components"
+
 ApplicationWindow {
     id: applicationWindow
     property QtObject readEvents
@@ -8,52 +10,66 @@ ApplicationWindow {
     height: 500
     title: "Mouse Track"
 
-    ListModel {
-        id: eventList
-    }
-
-    Component {
-        id: listComponent
-        Row {
-            spacing: 10
-            Text {
-                text: model.type;
-                color: "black";
-                font.pixelSize: 12
-            }
-
-            Text {
-                text: model.time;
-                color: "black";
-                font.pixelSize: 12
-            }
-        }
-    }
-
     Rectangle {
         id: mainContainer
         width: parent.width
         height: parent.height
-        Image {
-            source: "./images/mooncake.png"
-            fillMode: Image.PreserveAspectFit
-            width: 200
-            anchors.right: mainContainer.right
+
+        Rectangle {
+            id: headerContainer
+            width: parent.width
+            height: 60
+            color: "#6EC781"
+            Row {
+                leftPadding: 40
+                anchors.verticalCenter: parent.verticalCenter;
+                Text {
+                    text: "Mouse Track"
+                    font.family: "Nunito"
+                    font.weight: 300
+                    font.pointSize: 24
+                    color: "#1D1D1D"
+                }
+            }
         }
-        ListView {
-            anchors.fill: parent
-            model: eventList
-            delegate: listComponent
-            clip: true
+
+        Rectangle {
+            id: content
+            anchors.top: headerContainer.bottom
+            width: parent.width
+            height: parent.height
+
+            Column {
+                id: leftContentColumn
+                topPadding: 40
+                leftPadding: 40
+                width: 100;
+                spacing: 10;
+
+                Interaction {
+                    text: "Click"
+                    image: "./images/click.png"
+                }
+
+                Interaction {
+                    text: "Scroll"
+                    image: "./images/scroll.png"
+                }
+
+                Interaction {
+                    text: "Move"
+                    image: "./images/move.png"
+                }
+           }
         }
     }
 
     Connections {
         target: readEvents
         function onUpdated(messages) {
-            eventList.clear()
+//            eventList.clear()
             messages.forEach((message) => {
-                eventList.append({"type": message.type, "time": message.time})
+                //eventList.append({"type": message.type, "time": message.time})
             })
         }
     }

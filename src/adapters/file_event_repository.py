@@ -30,7 +30,6 @@ class FileEventRepository(EventRepository):
     def get(self) -> list[MouseEvent]:
         try:
             with open(self.file_storage, encoding='utf-8') as f:
-                print("mmmm")
                 return json.load(f)
         except FileNotFoundError:
             return []
