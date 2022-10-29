@@ -6,7 +6,7 @@ ApplicationWindow {
     visible: true
     width: 600
     height: 500
-    title: "TrackMouse"
+    title: "Mouse Track"
 
     ListModel {
         id: eventList
