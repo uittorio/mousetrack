@@ -8,6 +8,8 @@ ApplicationWindow {
     property int clickEventsCount
     property QtObject scrollEventsUpdater
     property int scrollEventsCount
+    property QtObject moveEventsUpdater
+    property int moveEventsCount
     visible: true
     width: 600
     height: 500
@@ -50,7 +52,7 @@ ApplicationWindow {
                 Interaction {
                     text: "Move"
                     image: "./images/move.png"
-                    countText: clickEventsCount
+                    countText: moveEventsCount
                 }
            }
         }
@@ -67,6 +69,13 @@ ApplicationWindow {
         target: scrollEventsUpdater
         function onUpdated(messages) {
             scrollEventsCount = messages.length;
+        }
+    }
+
+    Connections {
+        target: moveEventsUpdater
+        function onUpdated(messages) {
+            moveEventsCount = messages.length;
         }
     }
 }

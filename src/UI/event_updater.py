@@ -4,14 +4,13 @@ from time import sleep
 from PyQt6.QtCore import QObject, pyqtSignal
 
 from src.domain.mouse_event import MouseEvent
-from src.port.event_repository import EventRepository
 
 
-class MouseClickEventsUpdater(QObject):
+class EventUpdater(QObject):
     updated = pyqtSignal(list, arguments=['updater'])
 
-    def __init__(self, event_data_repository: EventRepository):
-        self.event_data_repository = event_data_repository
+    def __init__(self, get_mouse_events):
+        self.get_mouse_events = get_mouse_events
         QObject.__init__(self)
 
     def updater(self, events: list[MouseEvent]):
@@ -25,7 +24,7 @@ class MouseClickEventsUpdater(QObject):
     def __start(self):
         while True:
             try:
-                events: list[MouseEvent] = self.event_data_repository.get_mouse_click_events()
+                events: list[MouseEvent] = self.get_mouse_events()
                 self.updater(events)
             except FileNotFoundError:
                 print("problem finding the file")

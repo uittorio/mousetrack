@@ -43,3 +43,8 @@ class FileEventRepository(EventRepository):
         events = self.get()
 
         return list(filter(lambda event: event.get('type') == "scroll", events))
+
+    def get_mouse_move_events(self) -> list[MouseEvent]:
+        events = self.get()
+
+        return list(filter(lambda event: event.get('type') == "move", events))

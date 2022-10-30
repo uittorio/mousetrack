@@ -15,3 +15,6 @@ class EventRepository(ABC):
     @abstractmethod
     def get_mouse_scroll_events(self) -> list[MouseEvent]: pass
 
+    @abstractmethod
+    def get_mouse_move_events(self) -> list[MouseEvent]: pass
+
