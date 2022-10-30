@@ -33,3 +33,8 @@ class FileEventRepository(EventRepository):
                 return json.load(f)
         except FileNotFoundError:
             return []
+
+    def getMouseClickEvents(self) -> list[MouseEvent]:
+        events = self.get()
+
+        return list(filter(lambda event: event.get('type') == "click", events))

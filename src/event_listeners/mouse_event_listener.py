@@ -2,47 +2,47 @@ from time import strftime, gmtime
 
 from pynput import mouse
 
-from src.port.event_repository import EventRepository
-
+from src.domain.event_messages.event_messages import EventMessages
 
 def get_current_time():
     return strftime("%d/%m/%Y-%H:%M:%S", gmtime())
 
 
-def on_move(event_repository: EventRepository):
-    def _on_move(x, y):
-        event_repository.add_mouse_event({
+def on_move(event_messages: EventMessages):
+    def _(x, y):
+        event_messages.add_mouse_event({
             "type": "move",
             "time": get_current_time()
         })
 
-    return _on_move
+    return _
 
 
-def on_click(event_repository: EventRepository):
-    def _on_click(x, y, button, pressed):
-        event_repository.add_mouse_event({
-            "type": "click",
-            "time": get_current_time()
-        })
+def on_click(event_messages: EventMessages):
+    def _(x, y, button, pressed):
+        if pressed:
+            event_messages.add_mouse_event({
+                "type": "click",
+                "time": get_current_time()
+            })
 
-    return _on_click
+    return _
 
 
-def on_scroll(event_data: EventRepository):
-    def _on_scroll(x, y, dx, dy):
-        event_data.add_mouse_event({
+def on_scroll(event_messages: EventMessages):
+    def _(x, y, dx, dy):
+        event_messages.add_mouse_event({
             "type": "scroll",
             "time": get_current_time()
         })
 
-    return _on_scroll
+    return _
 
 
-def mouse_event_listener(event_repository: EventRepository):
+def mouse_event_listener(event_messages: EventMessages):
     mouse_listener = mouse.Listener(
-        on_move=on_move(event_repository),
-        on_click=on_click(event_repository),
-        on_scroll=on_scroll(event_repository),
+        on_move=on_move(event_messages),
+        on_click=on_click(event_messages),
+        on_scroll=on_scroll(event_messages),
         daemon=True)
     mouse_listener.start()

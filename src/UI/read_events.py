@@ -25,7 +25,8 @@ class ReadEvents(QObject):
     def __read(self):
         while True:
             try:
-                events: list[MouseEvent] = self.event_data_repository.get()
+                events: list[MouseEvent] = self.event_data_repository.getMouseClickEvents()
+                print(events)
                 self.updater(events)
             except FileNotFoundError:
                 print("problem finding the file")

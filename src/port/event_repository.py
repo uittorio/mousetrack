@@ -9,3 +9,6 @@ class EventRepository(ABC):
     @abstractmethod
     def get(self) -> list[MouseEvent]: pass
 
+    @abstractmethod
+    def getMouseClickEvents(self) -> list[MouseEvent]: pass
+
