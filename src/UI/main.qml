@@ -6,6 +6,8 @@ ApplicationWindow {
     id: applicationWindow
     property QtObject clickEventsUpdater
     property int clickEventsCount
+    property QtObject scrollEventsUpdater
+    property int scrollEventsCount
     visible: true
     width: 600
     height: 500
@@ -42,7 +44,7 @@ ApplicationWindow {
                 Interaction {
                     text: "Scroll"
                     image: "./images/scroll.png"
-                    countText: clickEventsCount
+                    countText: scrollEventsCount
                 }
 
                 Interaction {
@@ -58,6 +60,13 @@ ApplicationWindow {
         target: clickEventsUpdater
         function onUpdated(messages) {
             clickEventsCount = messages.length;
+        }
+    }
+
+    Connections {
+        target: scrollEventsUpdater
+        function onUpdated(messages) {
+            scrollEventsCount = messages.length;
         }
     }
 }

@@ -7,7 +7,7 @@ from src.domain.mouse_event import MouseEvent
 from src.port.event_repository import EventRepository
 
 
-class MouseClickEventsUpdater(QObject):
+class MouseScrollEventsUpdater(QObject):
     updated = pyqtSignal(list, arguments=['updater'])
 
     def __init__(self, event_data_repository: EventRepository):
@@ -25,7 +25,7 @@ class MouseClickEventsUpdater(QObject):
     def __start(self):
         while True:
             try:
-                events: list[MouseEvent] = self.event_data_repository.get_mouse_click_events()
+                events: list[MouseEvent] = self.event_data_repository.get_mouse_scroll_events()
                 self.updater(events)
             except FileNotFoundError:
                 print("problem finding the file")

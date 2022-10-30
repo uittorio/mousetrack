@@ -34,7 +34,12 @@ class FileEventRepository(EventRepository):
         except FileNotFoundError:
             return []
 
-    def getMouseClickEvents(self) -> list[MouseEvent]:
+    def get_mouse_click_events(self) -> list[MouseEvent]:
         events = self.get()
 
         return list(filter(lambda event: event.get('type') == "click", events))
+
+    def get_mouse_scroll_events(self) -> list[MouseEvent]:
+        events = self.get()
+
+        return list(filter(lambda event: event.get('type') == "scroll", events))

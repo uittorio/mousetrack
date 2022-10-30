@@ -5,6 +5,7 @@ from PyQt6.QtQml import QQmlApplicationEngine
 from PyQt6.QtQuick import QQuickWindow
 
 from src.UI.mouse_click_events_updater import MouseClickEventsUpdater
+from src.UI.mouse_scroll_events_updater import MouseScrollEventsUpdater
 from src.port.event_repository import EventRepository
 
 
@@ -19,6 +20,9 @@ class UI:
         self.engine.quit.connect(self.app.quit)
         self.engine.load('./UI/main.qml')
         click_events_updater = MouseClickEventsUpdater(self.event_repository)
+        scroll_events_updater = MouseScrollEventsUpdater(self.event_repository)
         self.engine.rootObjects()[0].setProperty('clickEventsUpdater', click_events_updater)
-        click_events_updater.read()
+        self.engine.rootObjects()[0].setProperty('scrollEventsUpdater', scroll_events_updater)
+        click_events_updater.start()
+        scroll_events_updater.start()
         sys.exit(self.app.exec())
