@@ -5,6 +5,7 @@ from src.port.event_repository import EventRepository
 class EventMessages:
     def __init__(self, event_repository: EventRepository):
         self.event_repository = event_repository
+        self.added_events = []
 
     def add_mouse_event(self, event: MouseEvent):
         event_type = event.get('type')
@@ -15,10 +16,10 @@ class EventMessages:
             self.event_repository.add_mouse_event(event)
 
         if event_type == "move":
-            self.event_repository.add_mouse_event(event)
+            move_events = self.__search_move_elements()
+            if len(move_events) == 0:
+                self.event_repository.add_mouse_event(event)
+                self.added_events.append(event)
 
-        # I would like to only add an event every 2 seconds for scroll and move
-        # I would like to add all the click events
-        # I would like to write to disk one at the time to avoid too many writes at the same time, like in a queue.
-        # I should first use the click events because they have less logic. Consumes all the events and write to disk every second
-        # print(event)
+    def __search_move_elements(self):
+        return list(filter(lambda event: event.get('type') == "move", self.added_events))
