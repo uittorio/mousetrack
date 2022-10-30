@@ -4,8 +4,8 @@ import "./components"
 
 ApplicationWindow {
     id: applicationWindow
-    property QtObject clickEvents
-    property int clickEventCount
+    property QtObject clickEventsUpdater
+    property int clickEventsCount
     visible: true
     width: 600
     height: 500
@@ -36,28 +36,28 @@ ApplicationWindow {
                 Interaction {
                     text: "Click"
                     image: "./images/click.png"
-                    countText: clickEventCount
+                    countText: clickEventsCount
                 }
 
                 Interaction {
                     text: "Scroll"
                     image: "./images/scroll.png"
-                    countText: clickEventCount
+                    countText: clickEventsCount
                 }
 
                 Interaction {
                     text: "Move"
                     image: "./images/move.png"
-                    countText: clickEventCount
+                    countText: clickEventsCount
                 }
            }
         }
     }
 
     Connections {
-        target: clickEvents
+        target: clickEventsUpdater
         function onUpdated(messages) {
-            clickEventCount = messages.length;
+            clickEventsCount = messages.length;
         }
     }
 }

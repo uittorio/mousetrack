@@ -4,7 +4,7 @@ from PyQt6.QtGui import QGuiApplication
 from PyQt6.QtQml import QQmlApplicationEngine
 from PyQt6.QtQuick import QQuickWindow
 
-from src.UI.read_events import ReadEvents
+from src.UI.mouse_click_events_updater import MouseClickEventsUpdater
 from src.port.event_repository import EventRepository
 
 
@@ -18,7 +18,7 @@ class UI:
     def draw(self):
         self.engine.quit.connect(self.app.quit)
         self.engine.load('./UI/main.qml')
-        read_events = ReadEvents(self.event_repository)
-        self.engine.rootObjects()[0].setProperty('clickEvents', read_events)
-        read_events.read()
+        click_events_updater = MouseClickEventsUpdater(self.event_repository)
+        self.engine.rootObjects()[0].setProperty('clickEventsUpdater', click_events_updater)
+        click_events_updater.read()
         sys.exit(self.app.exec())
