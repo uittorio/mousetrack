@@ -40,6 +40,4 @@ Rectangle {
             color: "#1D1D1D"
         }
     }
-
-
 }
