@@ -1,13 +1,23 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from src.domain.mouse_event import MouseEvent
 from src.port.event_repository import EventRepository
 
 
+def is_event_3_seconds_after_previous(event: MouseEvent, previous_event: MouseEvent):
+    time = event.get('time')
+    previous_event_time = previous_event.get('time')
+    date = datetime.strptime(time, "%d/%m/%Y-%H:%M:%S")
+    previous_event_date = datetime.strptime(previous_event_time, "%d/%m/%Y-%H:%M:%S")
+
+    return date > (previous_event_date + timedelta(seconds=3))
+
+
 class EventMessages:
     def __init__(self, event_repository: EventRepository):
+        self.last_move_event = None
+        self.last_scroll_event = None
         self.event_repository = event_repository
-        self.added_events = []
 
     def add_mouse_event(self, event: MouseEvent):
         event_type = event.get('type')
@@ -15,27 +25,19 @@ class EventMessages:
             self.event_repository.add_mouse_event(event)
 
         if event_type == "scroll":
-            self.event_repository.add_mouse_event(event)
+            if self.last_scroll_event is None:
+                self.event_repository.add_mouse_event(event)
+                self.last_scroll_event = event
+            else:
+                if is_event_3_seconds_after_previous(event, self.last_scroll_event):
+                    self.event_repository.add_mouse_event(event)
+                    self.last_scroll_event = event
 
         if event_type == "move":
-            move_events = self.__search_move_elements()
-
-            if len(move_events) == 0:
+            if self.last_move_event is None:
                 self.event_repository.add_mouse_event(event)
-                self.added_events.append(event)
+                self.last_move_event = event
             else:
-                first_element = move_events[0]
-                first_element_time = first_element.get('time')
-
-                time = event.get('time')
-                date = datetime.strptime(time, "%d/%m/%Y-%H:%M:%S")
-
-                first_element_date = datetime.strptime(first_element_time, "%d/%m/%Y-%H:%M:%S")
-
-                if date.second > first_element_date.second + 3:
+                if is_event_3_seconds_after_previous(event, self.last_move_event):
                     self.event_repository.add_mouse_event(event)
-                    self.added_events.append(event)
-                    self.added_events.clear()
-
-    def __search_move_elements(self):
-        return list(filter(lambda event: event.get('type') == "move", self.added_events))
+                    self.last_move_event = event

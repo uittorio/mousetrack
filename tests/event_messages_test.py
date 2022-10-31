@@ -65,9 +65,10 @@ def test_adding_a_move_message_after_3_seconds_of_the_first_none(fake_event_repo
     }
 
     second_event: MouseEvent = {
-        'time': '30/10/2022-06:26:15',
+        'time': '30/10/2022-06:25:15',
         'type': "move"
     }
+
     event_messages.add_mouse_event(first_event)
     event_messages.add_mouse_event(second_event)
     assert fake_event_repository.get_mouse_click_events() == [first_event, second_event]
@@ -85,10 +86,27 @@ def test_adding_a_move_message_after_2_seconds_of_the_first_two(fake_event_repos
     }
 
     third_event: MouseEvent = {
-        'time': '30/10/2022-06:26:14',
+        'time': '30/10/2022-06:25:14',
         'type': "move"
     }
     event_messages.add_mouse_event(first_event)
     event_messages.add_mouse_event(second_event)
     event_messages.add_mouse_event(third_event)
     assert fake_event_repository.get_mouse_click_events() == [first_event]
+
+
+def test_adding_a_move_message_after_4_seconds_of_the_first_one_on_the_next_minute(fake_event_repository,
+                                                                                   event_messages):
+    first_event: MouseEvent = {
+        'time': '30/10/2022-06:25:59',
+        'type': "move"
+    }
+
+    second_event: MouseEvent = {
+        'time': '30/10/2022-06:26:04',
+        'type': "move"
+    }
+
+    event_messages.add_mouse_event(first_event)
+    event_messages.add_mouse_event(second_event)
+    assert fake_event_repository.get_mouse_click_events() == [first_event, second_event]
