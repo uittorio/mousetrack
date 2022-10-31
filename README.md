@@ -55,8 +55,8 @@ A mouse usage is considered valid when
 #### Install dependencies
 ```pip install .```
 
-#### Run the tests (Work in progress)
-⚠️ 👷👷 ⚠️    
+#### Run the tests
+```pytest tests```
 
 #### Run the app
-```python main.py ```
+```python src/main.py ```
