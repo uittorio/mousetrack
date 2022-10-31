@@ -17,5 +17,4 @@ class FakeEventRepository(EventRepository):
 
     def add_mouse_event(self, event: MouseEvent):
         self.events.append(event)
-        print(self.events)
         pass

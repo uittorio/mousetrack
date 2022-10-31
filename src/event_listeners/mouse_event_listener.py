@@ -4,6 +4,7 @@ from pynput import mouse
 
 from src.domain.event_messages.event_messages import EventMessages
 
+
 def get_current_time():
     return strftime("%d/%m/%Y-%H:%M:%S", gmtime())
 
