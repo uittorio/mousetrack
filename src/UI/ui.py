@@ -5,8 +5,6 @@ from PyQt6.QtQml import QQmlApplicationEngine
 from PyQt6.QtQuick import QQuickWindow
 
 from src.UI.event_updater import EventUpdater
-from src.UI.mouse_click_events_updater import MouseClickEventsUpdater
-from src.UI.mouse_scroll_events_updater import MouseScrollEventsUpdater
 from src.port.event_repository import EventRepository
 
 
