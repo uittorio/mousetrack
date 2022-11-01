@@ -7,8 +7,8 @@ from src.port.event_repository import EventRepository
 def is_event_3_seconds_after_previous(event: MouseEvent, previous_event: MouseEvent):
     time = event.get('time')
     previous_event_time = previous_event.get('time')
-    date = datetime.strptime(time, "%d/%m/%Y-%H:%M:%S")
-    previous_event_date = datetime.strptime(previous_event_time, "%d/%m/%Y-%H:%M:%S")
+    date = datetime.fromtimestamp(time)
+    previous_event_date = datetime.fromtimestamp(previous_event_time)
 
     return date > (previous_event_date + timedelta(seconds=3))
 

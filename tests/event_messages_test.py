@@ -1,3 +1,6 @@
+from datetime import datetime
+from typing import Literal, Union
+
 import pytest as pytest
 
 from src.domain.event_messages.event_messages import EventMessages
@@ -15,59 +18,44 @@ def event_messages(fake_event_repository):
     return EventMessages(fake_event_repository)
 
 
-def test_adding_one_click_messages(fake_event_repository, event_messages):
-    event: MouseEvent = {
-        'time': '',
-        'type': "click"
+def mouse_event(event_type: Union[Literal["click"], Literal["scroll"], Literal["move"]], iso_date: str) -> MouseEvent:
+    iso_date = datetime.fromisoformat(iso_date)
+    return {
+        'time': datetime.timestamp(iso_date),
+        'type': event_type
     }
+
+
+def test_adding_one_click_messages(fake_event_repository, event_messages):
+    event = mouse_event("click", "2022-10-30T06:25:11")
     event_messages.add_mouse_event(event)
     assert fake_event_repository.get_mouse_click_events() == [event]
 
 
 def test_adding_two_click_messages(fake_event_repository, event_messages):
-    event: MouseEvent = {
-        'time': '',
-        'type': "click"
-    }
+    event = mouse_event("click", "2022-10-30T06:25:11")
     event_messages.add_mouse_event(event)
     event_messages.add_mouse_event(event)
     assert fake_event_repository.get_mouse_click_events() == [event, event]
 
 
 def test_adding_one_move_message(fake_event_repository, event_messages):
-    event: MouseEvent = {
-        'time': '',
-        'type': "move"
-    }
+    event = mouse_event("move", "2022-10-30T06:25:11")
     event_messages.add_mouse_event(event)
     assert fake_event_repository.get_mouse_click_events() == [event]
 
 
 def test_adding_two_move_message(fake_event_repository, event_messages):
-    first_event: MouseEvent = {
-        'time': '30/10/2022-06:25:11',
-        'type': "move"
-    }
-
-    second_event: MouseEvent = {
-        'time': '30/10/2022-06:25:12',
-        'type': "move"
-    }
+    first_event = mouse_event("move", "2022-10-30T06:25:11")
+    second_event = mouse_event("move", "2022-10-30T06:25:12")
     event_messages.add_mouse_event(first_event)
     event_messages.add_mouse_event(second_event)
     assert fake_event_repository.get_mouse_click_events() == [first_event]
 
 
 def test_adding_a_move_message_after_3_seconds_of_the_first_none(fake_event_repository, event_messages):
-    first_event: MouseEvent = {
-        'time': '30/10/2022-06:25:11',
-        'type': "move"
-    }
-
-    second_event: MouseEvent = {
-        'time': '30/10/2022-06:25:15',
-        'type': "move"
-    }
+    first_event = mouse_event("move", "2022-10-30T06:25:11")
+    second_event = mouse_event("move", "2022-10-30T06:25:15")
 
     event_messages.add_mouse_event(first_event)
     event_messages.add_mouse_event(second_event)
@@ -75,20 +63,9 @@ def test_adding_a_move_message_after_3_seconds_of_the_first_none(fake_event_repo
 
 
 def test_adding_a_move_message_after_2_seconds_of_the_first_two(fake_event_repository, event_messages):
-    first_event: MouseEvent = {
-        'time': '30/10/2022-06:25:11',
-        'type': "move"
-    }
-
-    second_event: MouseEvent = {
-        'time': '30/10/2022-06:25:12',
-        'type': "move"
-    }
-
-    third_event: MouseEvent = {
-        'time': '30/10/2022-06:25:14',
-        'type': "move"
-    }
+    first_event = mouse_event("move", "2022-10-30T06:25:11")
+    second_event = mouse_event("move", "2022-10-30T06:25:12")
+    third_event = mouse_event("move", "2022-10-30T06:25:14")
     event_messages.add_mouse_event(first_event)
     event_messages.add_mouse_event(second_event)
     event_messages.add_mouse_event(third_event)
@@ -97,15 +74,8 @@ def test_adding_a_move_message_after_2_seconds_of_the_first_two(fake_event_repos
 
 def test_adding_a_move_message_after_4_seconds_of_the_first_one_on_the_next_minute(fake_event_repository,
                                                                                    event_messages):
-    first_event: MouseEvent = {
-        'time': '30/10/2022-06:25:59',
-        'type': "move"
-    }
-
-    second_event: MouseEvent = {
-        'time': '30/10/2022-06:26:04',
-        'type': "move"
-    }
+    first_event = mouse_event("move", "2022-10-30T06:25:59")
+    second_event = mouse_event("move", "2022-10-30T06:26:04")
 
     event_messages.add_mouse_event(first_event)
     event_messages.add_mouse_event(second_event)
