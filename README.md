@@ -16,7 +16,7 @@ It also displays a value called Mouse usage that is the union of these three wit
 
 #### Event rules
 - onClick -> Every click is saved into the json
-- onScroll -> There are many events happening when you "scroll". We are going to limit this for one event every 2 seconds
+- onScroll -> There are many events happening when you "scroll". We are going to limit this for one event every 3 seconds
 - onMove -> Same as above
 
 #### Mouse usage rules
