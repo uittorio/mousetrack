@@ -21,9 +21,10 @@ class UI:
         click_events_updater = EventUpdater(self.event_repository.get_mouse_click_events)
         scroll_events_updater = EventUpdater(self.event_repository.get_mouse_scroll_events)
         move_event_updater = EventUpdater(self.event_repository.get_mouse_move_events)
-        self.engine.rootObjects()[0].setProperty('clickEventsUpdater', click_events_updater)
-        self.engine.rootObjects()[0].setProperty('scrollEventsUpdater', scroll_events_updater)
-        self.engine.rootObjects()[0].setProperty('moveEventsUpdater', move_event_updater)
+        applicationObject = self.engine.rootObjects()[0]
+        applicationObject.setProperty('clickEventsUpdater', click_events_updater)
+        applicationObject.setProperty('scrollEventsUpdater', scroll_events_updater)
+        applicationObject.setProperty('moveEventsUpdater', move_event_updater)
         click_events_updater.start()
         scroll_events_updater.start()
         move_event_updater.start()
