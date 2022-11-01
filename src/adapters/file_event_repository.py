@@ -17,7 +17,6 @@ def filter_by(events: list[MouseEvent], event_type: str):
 class FileEventRepository(EventRepository):
     file_storage = "file_storage/events.json"
     data: list[MouseEvent] = []
-    test: MouseEvent
 
     def __init__(self):
         self.__load_data()
@@ -29,18 +28,13 @@ class FileEventRepository(EventRepository):
             f.write(data)
 
     def get_mouse_click_events(self) -> list[MouseEvent]:
-        events = self.__get()
-
-        return filter_by(events, 'click')
+        return filter_by(self.__get(), 'click')
 
     def get_mouse_scroll_events(self) -> list[MouseEvent]:
-        events = self.__get()
-
-        return filter_by(events, 'scroll')
+        return filter_by(self.__get(), 'scroll')
 
     def get_mouse_move_events(self) -> list[MouseEvent]:
-        events = self.__get()
-        return filter_by(events, 'move')
+        return filter_by(self.__get(), 'move')
 
     def __load_data(self):
         self.data = self.__get()
