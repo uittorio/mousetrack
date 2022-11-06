@@ -59,4 +59,7 @@ A mouse usage is considered valid when
 ```pytest tests```
 
 #### Run the app
-```python src/main.py ```
+```python mouse-track.py ```
+
+#### Build the app
+```pyinstaller mouse-track.spec ```
