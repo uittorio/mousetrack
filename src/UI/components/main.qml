@@ -29,31 +29,51 @@ ApplicationWindow {
             width: parent.width
             height: parent.height
 
-            Column {
-                id: leftContentColumn
-                topPadding: 40
-                leftPadding: 40
-                width: 100;
-                spacing: 10;
+            Grid {
+                spacing: 60
+                columns: 2
+                Column {
+                    id: leftContentColumn
+                    topPadding: 40
+                    leftPadding: 40
+                    width: 100;
+                    spacing: 10;
 
-                Interaction {
-                    text: "Click"
-                    image: "./images/click.png"
-                    countText: clickEventsCount
+                    Interaction {
+                        text: "Click"
+                        image: "./images/click.png"
+                        countText: clickEventsCount
+                    }
+
+                    Interaction {
+                        text: "Scroll"
+                        image: "./images/scroll.png"
+                        countText: scrollEventsCount
+                    }
+
+                    Interaction {
+                        text: "Move"
+                        image: "./images/move.png"
+                        countText: moveEventsCount
+                    }
                 }
 
-                Interaction {
-                    text: "Scroll"
-                    image: "./images/scroll.png"
-                    countText: scrollEventsCount
-                }
+                Column {
+                    id: rightColumnContent
+                    topPadding: 40
+                    leftPadding: 40
+                    width: 100;
+                    spacing: 10;
 
-                Interaction {
-                    text: "Move"
-                    image: "./images/move.png"
-                    countText: moveEventsCount
+                    Interaction {
+                        text: "Key press"
+                        image: "./images/keyboard.png"
+                        countText: moveEventsCount
+                    }
                 }
-           }
+            }
+
+
         }
     }
 
