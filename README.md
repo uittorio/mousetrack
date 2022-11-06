@@ -56,6 +56,8 @@ A mouse usage is considered valid when
 ```pip install .```
 
 #### Run the tests
+```pip install ".[test]"```
+
 ```pytest tests```
 
 #### Run the app
