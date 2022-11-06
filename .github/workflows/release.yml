@@ -1,0 +1,37 @@
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+
+name: Upload Release Asset
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ['macos-latest']
+        python-version: ["3.9"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: pip install .
+      - name: Install release dependencies
+        run: pip install ".[release]"
+      - name: Create Release files
+        run: pyinstaller mouse-track.spec
+      - name: Zip files
+        run: zip -r release.zip dist
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release.zip
+          fail_on_unmatched_files: true
+          tag_name: test-release-3
+          draft: true
+
