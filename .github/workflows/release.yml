@@ -24,3 +24,8 @@ jobs:
         run: pip install ".[release]"
       - name: Create package
         run: pyinstaller mouse-track.spec
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/mouse-track.app
+
