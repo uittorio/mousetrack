@@ -9,6 +9,8 @@ ApplicationWindow {
     property int scrollEventsCount
     property QtObject moveEventsUpdater
     property int moveEventsCount
+    property QtObject keyboardEventsUpdater
+    property int keyboardEventsCount
     visible: true
     width: 600
     height: 500
@@ -68,7 +70,7 @@ ApplicationWindow {
                     Interaction {
                         text: "Key press"
                         image: "./images/keyboard.png"
-                        countText: moveEventsCount
+                        countText: keyboardEventsCount
                     }
                 }
             }
@@ -95,6 +97,13 @@ ApplicationWindow {
         target: moveEventsUpdater
         function onUpdated(messages) {
             moveEventsCount = messages.length;
+        }
+    }
+
+    Connections {
+        target: keyboardEventsUpdater
+        function onUpdated(messages) {
+            keyboardEventsCount = messages.length;
         }
     }
 }

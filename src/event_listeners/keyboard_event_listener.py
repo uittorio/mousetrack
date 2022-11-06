@@ -1,23 +1,30 @@
+from datetime import datetime
+
 from pynput import keyboard
 
-
-def on_press(key):
-    try:
-        print('alphanumeric key {0} pressed'.format(
-            key.char))
-    except AttributeError:
-        print('special key {0} pressed'.format(
-            key))
+from src.domain.event_messages.event_messages import EventMessages
 
 
-def on_release(key):
-    print('{0} released'.format(
-        key))
+def get_current_time():
+    return datetime.timestamp(datetime.now())
 
 
-def keyboard_event_listener():
+def on_press(event_messages: EventMessages):
+    def _(key):
+        try:
+            event_messages.add_keyboard_event({
+                "type": "keypressed",
+                "time": get_current_time()
+            })
+        except AttributeError:
+            print('special key {0} pressed'.format(
+                key))
+
+    return _
+
+
+def keyboard_event_listener(event_messages: EventMessages):
     listener = keyboard.Listener(
-        on_press=on_press,
-        on_release=on_release,
+        on_press=on_press(event_messages),
         daemon=True)
     listener.start()

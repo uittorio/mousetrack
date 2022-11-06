@@ -3,10 +3,14 @@ from src.port.event_repository import EventRepository
 
 
 class FakeEventRepository(EventRepository):
+
     def __init__(self):
         self.events = []
 
     def get_mouse_scroll_events(self) -> list[MouseEvent]:
+        pass
+
+    def get_keyboard_events(self) -> list[MouseEvent]:
         pass
 
     def get_mouse_move_events(self) -> list[MouseEvent]:

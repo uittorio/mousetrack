@@ -1,7 +1,9 @@
 import json
 import os
 import sys
+from typing import Union, TypeVar
 
+from src.domain.keyboard_event import KeyboardEvent
 from src.domain.mouse_event import MouseEvent
 from src.port.event_repository import EventRepository
 
@@ -11,7 +13,10 @@ def safe_open_w(path):
     return open(path, 'w+', encoding='utf-8')
 
 
-def filter_by(events: list[MouseEvent], event_type: str):
+T = TypeVar("T")
+
+
+def filter_by(events: list[T], event_type: str):
     return list(filter(lambda event: event.get('type') == event_type, events))
 
 
@@ -38,6 +43,12 @@ class FileEventRepository(EventRepository):
             data = json.dumps(self.data, ensure_ascii=False, indent=4)
             f.write(data)
 
+    def add_keyboard_event(self, event: KeyboardEvent):
+        self.data.append(event)
+        with safe_open_w(self.file_storage) as f:
+            data = json.dumps(self.data, ensure_ascii=False, indent=4)
+            f.write(data)
+
     def get_mouse_click_events(self) -> list[MouseEvent]:
         return filter_by(self.__get(), 'click')
 
@@ -47,10 +58,13 @@ class FileEventRepository(EventRepository):
     def get_mouse_move_events(self) -> list[MouseEvent]:
         return filter_by(self.__get(), 'move')
 
+    def get_keyboard_events(self) -> list[KeyboardEvent]:
+        return filter_by(self.__get(), 'keypressed')
+
     def __load_data(self):
         self.data = self.__get()
 
-    def __get(self) -> list[MouseEvent]:
+    def __get(self) -> list[Union[MouseEvent, KeyboardEvent]]:
         try:
             with open(self.file_storage, encoding='utf-8') as f:
                 return json.load(f)

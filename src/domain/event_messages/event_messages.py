@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 
+from src.domain.keyboard_event import KeyboardEvent
 from src.domain.mouse_event import MouseEvent
 from src.port.event_repository import EventRepository
 
@@ -41,3 +42,8 @@ class EventMessages:
                 if is_event_3_seconds_after_previous(event, self.last_move_event):
                     self.event_repository.add_mouse_event(event)
                     self.last_move_event = event
+
+    def add_keyboard_event(self, event: KeyboardEvent):
+        event_type = event.get('type')
+        if event_type == "keypressed":
+            self.event_repository.add_keyboard_event(event)
