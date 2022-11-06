@@ -22,13 +22,15 @@ jobs:
         run: pip install .
       - name: Install release dependencies
         run: pip install ".[release]"
-      - name: Create package
+      - name: Create Release files
         run: pyinstaller mouse-track.spec
+      - name: Zip files
+        run: zip -r release.zip dist
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: dist/*
+          files: release.zip
           fail_on_unmatched_files: true
-          tag_name: test-release-2
+          tag_name: test-release-3
           draft: true
 
