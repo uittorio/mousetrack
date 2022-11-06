@@ -1,0 +1,25 @@
+on:
+  push:
+    branches:
+      - test-release
+
+name: Upload Release Asset
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ['macos-latest']
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: pip install .
+      - name: Install release dependencies
+        run: pip install ".[release]"
+      - name: Create package
+        run: pyinstaller mouse-track.spec
