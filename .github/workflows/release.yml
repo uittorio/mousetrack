@@ -1,7 +1,8 @@
 on:
   push:
-    branches:
-      - test-release
+    tags:
+      - "v*.*.*"
+
 
 name: Upload Release Asset
 jobs:
