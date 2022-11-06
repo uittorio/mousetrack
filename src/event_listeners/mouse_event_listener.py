@@ -1,5 +1,4 @@
 from datetime import datetime
-from time import strftime, gmtime
 
 from pynput import mouse
 

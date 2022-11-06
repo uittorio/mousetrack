@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 
 from src.domain.mouse_event import MouseEvent
 from src.port.event_repository import EventRepository
@@ -14,11 +15,21 @@ def filter_by(events: list[MouseEvent], event_type: str):
     return list(filter(lambda event: event.get('type') == event_type, events))
 
 
+def get_file_path():
+    file_name = "events.json"
+    if hasattr(sys, "_MEIPASS"):
+        abs_home = os.path.abspath(os.path.expanduser("~"))
+        file_path = os.path.join(abs_home, f".mouse-track", "file_storage")
+    else:
+        file_path = 'file_storage'
+    return os.path.join(file_path, file_name)
+
+
 class FileEventRepository(EventRepository):
-    file_storage = "file_storage/events.json"
     data: list[MouseEvent] = []
 
     def __init__(self):
+        self.file_storage = get_file_path()
         self.__load_data()
 
     def add_mouse_event(self, event: MouseEvent):

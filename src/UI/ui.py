@@ -1,3 +1,4 @@
+import os
 import sys
 
 from PyQt6.QtGui import QGuiApplication
@@ -17,7 +18,9 @@ class UI:
 
     def draw(self):
         self.engine.quit.connect(self.app.quit)
-        self.engine.load('./UI/main.qml')
+        absolute_path = os.path.dirname(__file__)
+
+        self.engine.load(absolute_path + '/components/main.qml')
         click_events_updater = EventUpdater(self.event_repository.get_mouse_click_events)
         scroll_events_updater = EventUpdater(self.event_repository.get_mouse_scroll_events)
         move_event_updater = EventUpdater(self.event_repository.get_mouse_move_events)
