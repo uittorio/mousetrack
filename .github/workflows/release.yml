@@ -28,4 +28,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: dist/mouse-track.app
+          tag_name: test-release-1
+          draft: true
 
