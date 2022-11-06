@@ -27,7 +27,8 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: ./dist
-          tag_name: test-release-1
+          files: dist/*
+          fail_on_unmatched_files: true
+          tag_name: test-release-2
           draft: true
 
