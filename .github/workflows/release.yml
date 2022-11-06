@@ -32,6 +32,4 @@ jobs:
         with:
           files: release.zip
           fail_on_unmatched_files: true
-          tag_name: test-release-3
-          draft: true
 
