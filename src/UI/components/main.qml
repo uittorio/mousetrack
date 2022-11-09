@@ -11,6 +11,8 @@ ApplicationWindow {
     property int moveEventsCount
     property QtObject keyboardEventsUpdater
     property int keyboardEventsCount
+    property QtObject percentageKeyboardEvents
+    property real percentageKeyboardEventsValue
     visible: true
     width: 600
     height: 500
@@ -32,6 +34,7 @@ ApplicationWindow {
             height: parent.height
 
             Grid {
+                id: interactions
                 spacing: 60
                 columns: 2
                 Column {
@@ -75,7 +78,35 @@ ApplicationWindow {
                 }
             }
 
+            Rectangle {
+                anchors.top: interactions.bottom
 
+                Column {
+                    topPadding: 40
+                    leftPadding: 40
+                    spacing: 10;
+
+                    Text {
+                        id: keyboardPercentage
+                        text: 'Keyboard % of total interactions'
+                        anchors.leftMargin: 20
+                        font.family: "Nunito"
+                        font.weight: 300
+                        font.pointSize: 16
+                        color: "#1D1D1D"
+                    }
+
+                    Rectangle {
+                        width: 310
+                        height: 30
+
+                        ProgressBar {
+                            value: percentageKeyboardEventsValue
+                        }
+                    }
+                }
+
+            }
         }
     }
 
@@ -104,6 +135,13 @@ ApplicationWindow {
         target: keyboardEventsUpdater
         function onUpdated(messages) {
             keyboardEventsCount = messages.length;
+        }
+    }
+
+    Connections {
+        target: percentageKeyboardEvents
+        function onUpdated(percentage) {
+            percentageKeyboardEventsValue = percentage;
         }
     }
 }
