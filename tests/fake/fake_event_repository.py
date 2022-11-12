@@ -11,7 +11,7 @@ class FakeEventRepository(EventRepository):
     def get_mouse_scroll_events(self) -> list[MouseEvent]:
         return self.mouse_events
 
-    def get_keyboard_events(self) -> list[MouseEvent]:
+    def get_keyboard_events(self) -> list[KeyboardEvent]:
         return self.keyboard_events
 
     def get_mouse_move_events(self) -> list[MouseEvent]:
