@@ -1,5 +1,6 @@
 import QtQuick
-import QtQuick.Controls.Basic
+import QtQuick.Controls
+import QtCharts
 
 ApplicationWindow {
     id: applicationWindow
@@ -108,6 +109,31 @@ ApplicationWindow {
 
             }
         }
+
+        Rectangle {
+            anchors.top: content.bottom
+            width: parent.with
+            height: 300
+
+            ChartView {
+                id: chartView
+                height: 300
+
+                LineSeries {
+                    XYPoint {
+                        x: 0
+                        y: 0
+                    }
+
+                    XYPoint {
+                        x: 10.1
+                        y: 2.1
+                    }
+
+                }
+            }
+        }
+
     }
 
     Connections {

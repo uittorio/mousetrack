@@ -1,25 +1,18 @@
 import os
 import sys
 
-from PyQt6.QtGui import QGuiApplication
 from PyQt6.QtQml import QQmlApplicationEngine
-from PyQt6.QtQuick import QQuickWindow
+from PyQt6.QtWidgets import QApplication
 
 from src.UI.float_event_updater import FloatEventUpdater
 from src.UI.list_event_updater import ListEventUpdater
 from src.application.keyboard_percentage.keyboard_percentage import KeyboardPercentage
 from src.port.event_repository import EventRepository
 
-
-def get():
-    return 0.2
-
-
 class UI:
     def __init__(self, event_repository: EventRepository):
-        QQuickWindow.setSceneGraphBackend('software')
         self.event_repository = event_repository
-        self.app = QGuiApplication(sys.argv + ["-style", ""])
+        self.app = QApplication(sys.argv)
         self.engine = QQmlApplicationEngine()
         self.keyboard_events = KeyboardPercentage(self.event_repository)
 

@@ -1,6 +1,5 @@
 import threading
 from time import sleep
-from typing import TypeVar
 
 from PyQt6.QtCore import QObject, pyqtSignal
 
