@@ -5,3 +5,5 @@ track_mouse.egg-info
 build
 dist
 file_storage
+.DS_Store
+__pycache__
