@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtCharts
+import QtQuick.Layouts
 
 ApplicationWindow {
     id: applicationWindow
@@ -16,7 +17,7 @@ ApplicationWindow {
     property real percentageKeyboardEventsValue
     visible: true
     width: 600
-    height: 500
+    height: 1000
     title: "Mouse Track"
 
     Rectangle {
@@ -32,7 +33,7 @@ ApplicationWindow {
             id: content
             anchors.top: headerContainer.bottom
             width: parent.width
-            height: parent.height
+            height: 300
 
             Grid {
                 id: interactions
@@ -111,11 +112,12 @@ ApplicationWindow {
         }
 
         Rectangle {
+            width: parent.width
             anchors.top: content.bottom
-            width: parent.with
             height: 300
 
             ChartView {
+                width: parent.width
                 id: chartView
                 height: 300
 
